@@ -1,19 +1,20 @@
-student_count = 12
+students = [
+  "Dr. Hannibal Lecter",
+  "Darth Vader",
+  "Nurse Ratched",
+  "Michael Corleone",
+  "Lucien LaChance",
+  "Alex DeLarge",
+  "The Wicked Witch of the West",
+  "Terminator",
+  "The Joker",
+  "Freddy Kruger",
+  "Jeoffrey Baratheon",
+  "Norman Bates"
+]
 #prints list of students
 puts "The students of Villains Academy"
 puts "----------------------"
-puts "Dr. Hannibal Lecter"
-puts "Darth Vader"
-puts "Nurse Ratched"
-puts "Michael Corleone"
-puts "Lucien LaChance"
-puts "Alex DeLarge"
-puts "The Wicked Witch of the West"
-puts "Terminator"
-puts "The Joker"
-puts "Freddy Kruger"
-puts "Jeoffrey Baratheon"
-puts "Norman Bates"
-
+students.each {|student| puts student}
 #prints number of students
-print "There are #{student_count} students."
+puts "There are #{students.count} students."
