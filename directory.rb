@@ -1,4 +1,4 @@
-students = [
+@students = [
   {name: "Dr. Hannibal Lecter", cohort: "november"},
   {name: "Darth Vader", cohort: "november"},
   {name: "Nurse Ratched", cohort: "november"},
@@ -13,27 +13,29 @@ students = [
   {name: "Jeb Kerman", cohort: "november"},
   {name: "Norman Bates", cohort: "november"}
 ]
-cohort = :november
+@cohort = :november
 def header
-puts "The students of Villains Academy"
-puts "----------------------"
-end
-def print(names)
-names.each_with_index {|name, i| puts "#{i + 1}: #{name[:name]}, (#{name[:cohort]} cohort)"}
+  puts ""
+  puts "The students of Villains Academy"
+  puts "----------------------"
 end
 
-def footer(names)
-puts "There are #{names.count} students."
+def print_student_list(names)
+  names.each_with_index {|name, i| puts "#{i + 1}: #{name[:name]}, (#{name[:cohort]} cohort)"}
 end
 
-def input_students cohort
+def footer(students)
+puts "There are #{students.count} students."
+end
+
+def input_students
   puts "Please enter the names of students"
   puts "to finish, hit return twice"
 
   students = []
   name = gets.chomp
   while !name.empty? do
-    students << {name: name ,  cohort: cohort}
+    students << {name: name ,  cohort: @cohort}
     puts "Now we have #{students.count} student#{"s" unless students.count == 1}."
     name = gets.chomp
   end
@@ -41,48 +43,71 @@ students
 
 end
 
-def add_student cohort
+def add_student
   puts "Please enter the name of the student."
   name = gets.chomp
-  puts "#{name} added (#{cohort} cohort)."
-  {name:name, cohort: cohort}
+  puts "#{name} added (#{@cohort} cohort)."
+  {name:name, cohort: @cohort}
 end
 
-#main loop
-puts "Welcome to the student directory for Villains Academy!"
-puts "What would you like to do?"
-puts "Type 'HELP' for commands, 'EXIT' to end program."
-input = gets.chomp
-while input.upcase != "EXIT"
-  case input.upcase
+def display_students
+  header
+  print_student_list(@students)
+  footer(@students)
+end
+
+def get_cohort
+  puts "Please Enter the cohort"
+  cohort = gets.chomp.downcase.to_sym
+end
+
+def clear
+  puts "Clear all students? (YES/NO)"
+  check = gets.chomp
+  if check.upcase == "YES"
+    @students = []
+    puts "Students cleared."
+  else
+    puts "Aborting, students retained."
+  end
+end
+
+def process selection
+  case selection.upcase
   when "INPUT STUDENTS"
-    students = input_students cohort
+    @students = input_students
   when "DISPLAY STUDENTS"
-    header
-    print(students)
-    footer(students)
+    display_students
   when "ADD STUDENT"
-    students << add_student(cohort)
+    @students << add_student
   when "CHANGE COHORT"
-    puts "Please Enter the cohort"
-    cohort = gets.chomp.downcase.to_sym
-    puts "Cohort set to #{cohort}."
+    @cohort = get_cohort
   when "CLEAR STUDENTS"
-    puts "Clear all students? (YES/NO)"
-    check = gets.chomp
-    if check.upcase == "YES"
-      students = []
-      puts "Students cleared."
-    else
-      puts "Aborting, students retained."
-    end
+    clear
   when "HELP"
     puts "Commands:\nDISPLAY STUDENTS\nINPUT STUDENTS\nADD STUDENT\nCHANGE COHORT\nCLEAR STUDENTS\nHELP\nEXIT"
     puts "Commands aren't case sensitive. Unrecognised commands are ignored."
+  when "EXIT"
+    exit
   end
+end
+
+def greeting
+  puts "Welcome to the student directory for Villains Academy!"
+end
+
+def prompt
   puts ""
   puts "What would you like to do?"
   puts "Type 'HELP' for commands, 'EXIT' to end program."
-  input = gets.chomp
-
 end
+
+def interface
+  greeting
+  loop do
+    prompt
+    process gets.chomp
+  end
+end
+
+interface
