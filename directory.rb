@@ -18,7 +18,7 @@ puts "The students of Villains Academy"
 puts "----------------------"
 end
 def print(names)
-names.each {|name| puts "#{name[:name]}, (#{name[:cohort]} cohort)
+names.each {|name| puts "#{name[:name]}, (#{name[:cohort]} cohort)"}
 end
 
 def footer(names)
