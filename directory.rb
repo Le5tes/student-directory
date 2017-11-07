@@ -1,16 +1,16 @@
 students = [
-  ["Dr. Hannibal Lecter", "november"],
-  ["Darth Vader","november"],
-  ["Nurse Ratched","november"],
-  ["Michael Corleone","november"],
-  ["Lucien LaChance","november"],
-  ["Alex DeLarge","november"],
-  ["The Wicked Witch of the West","november"],
-  ["Terminator","november"],
-  ["The Joker","november"],
-  ["Freddy Kruger","november"],
-  ["Jeoffrey Baratheon","november"],
-  ["Norman Bates","november"]
+  {name: "Dr. Hannibal Lecter", cohort: "november"},
+  {name: "Darth Vader", cohort: "november"},
+  {name: "Nurse Ratched", cohort: "november"},
+  {name: "Michael Corleone", cohort: "november"},
+  {name: "Lucien LaChance", cohort: "november"},
+  {name: "Alex DeLarge", cohort: "november"},
+  {name: "The Wicked Witch of the West", cohort: "november"},
+  {name: "Terminator", cohort: "november"},
+  {name: "The Joker", cohort: "november"},
+  {name: "Freddy Kruger", cohort: "november"},
+  {name: "Jeoffrey Baratheon", cohort: "november"},
+  {name: "Norman Bates", cohort: "november"}
 ]
 
 def header
@@ -18,7 +18,7 @@ puts "The students of Villains Academy"
 puts "----------------------"
 end
 def print(names)
-names.each {|name| puts "#{name[0]}, (#{name[1]} cohort)
+names.each {|name| puts "#{name[:name]}, (#{name[:cohort]} cohort)
 end
 
 def footer(names)
