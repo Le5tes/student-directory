@@ -34,7 +34,7 @@ def input_students cohort
   name = gets.chomp
   while !name.empty? do
     students << {name: name ,  cohort: cohort}
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} student#{"s" unless students.count == 1}."
     name = gets.chomp
   end
 students
