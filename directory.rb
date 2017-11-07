@@ -12,3 +12,7 @@ puts "The Joker"
 puts "Freddy Kruger"
 puts "Jeoffrey Baratheon"
 puts "Norman Bates"
+
+print "There are "
+print "12"
+print " students."  
