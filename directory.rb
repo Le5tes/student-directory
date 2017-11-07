@@ -1,3 +1,5 @@
+
+#prints list of students
 puts "The students of Villains Academy"
 puts "----------------------"
 puts "Dr. Hannibal Lecter"
@@ -13,6 +15,7 @@ puts "Freddy Kruger"
 puts "Jeoffrey Baratheon"
 puts "Norman Bates"
 
+#prints number of students
 print "There are "
 print "12"
-print " students."  
+print " students."
