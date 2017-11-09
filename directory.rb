@@ -86,12 +86,17 @@ def process selection
     clear
   when "SAVE STUDENTS"
     save_students
+  when "LOAD STUDENTS"
+    load_students
   when "HELP"
-    puts "Commands:\nDISPLAY STUDENTS\nINPUT STUDENTS\nADD STUDENT\nCHANGE COHORT\nSAVE STUDENTS\nCLEAR STUDENTS\nHELP\nEXIT"
-    puts "Commands aren't case sensitive. Unrecognised commands are ignored."
+    help_menu
   when "EXIT"
     exit
   end
+end
+def help_menu
+  puts "Commands:\nDISPLAY STUDENTS\nINPUT STUDENTS\nADD STUDENT\nCHANGE COHORT\nSAVE STUDENTS\nLOAD STUDENTS\nCLEAR STUDENTS\nHELP\nEXIT"
+  puts "Commands aren't case sensitive. Unrecognised commands are ignored."
 end
 
 def greeting
@@ -121,4 +126,12 @@ def save_students
   file.close
 end
 
+def load_students
+  file = File.open("student_directory.csv" ,"r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split (',')
+    @students << {name:name, cohort: cohort.to_sym}
+  end
+  file.close
+end
 interface
