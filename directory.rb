@@ -33,11 +33,11 @@ def input_students
   puts "to finish, hit return twice"
 
   students = []
-  name = gets.chomp
+  name = STDIN.gets.chomp
   while !name.empty? do
     students << {name: name ,  cohort: @cohort}
     puts "Now we have #{students.count} student#{"s" unless students.count == 1}."
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   students
 
@@ -45,7 +45,7 @@ end
 
 def add_student
   puts "Please enter the name of the student."
-  name = gets.chomp
+  name = STDIN.gets.chomp
   puts "#{name} added (#{@cohort} cohort)."
   {name:name, cohort: @cohort}
 end
@@ -58,12 +58,12 @@ end
 
 def get_cohort
   puts "Please Enter the cohort"
-  cohort = gets.chomp.downcase.to_sym
+  cohort = STDIN.gets.chomp.downcase.to_sym
 end
 
 def clear
   puts "Clear all students? (YES/NO)"
-  check = gets.chomp
+  check = STDIN.gets.chomp
   if check.upcase == "YES"
     @students = []
     puts "Students cleared."
@@ -113,7 +113,7 @@ def interface
   greeting
   loop do
     prompt
-    process gets.chomp
+    process STDIN.gets.chomp
   end
 end
 
@@ -126,12 +126,26 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("student_directory.csv" ,"r")
+def load_students (filename = "student_directory.csv")
+  file = File.open(filename ,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split (',')
     @students << {name:name, cohort: cohort.to_sym}
   end
   file.close
 end
+
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students filename
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry no such file (#{filename})."
+    exit
+  end
+end
+
+try_load_students
 interface
