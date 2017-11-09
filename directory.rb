@@ -39,7 +39,7 @@ def input_students
     puts "Now we have #{students.count} student#{"s" unless students.count == 1}."
     name = gets.chomp
   end
-students
+  students
 
 end
 
@@ -84,8 +84,10 @@ def process selection
     @cohort = get_cohort
   when "CLEAR STUDENTS"
     clear
+  when "SAVE STUDENTS"
+    save_students
   when "HELP"
-    puts "Commands:\nDISPLAY STUDENTS\nINPUT STUDENTS\nADD STUDENT\nCHANGE COHORT\nCLEAR STUDENTS\nHELP\nEXIT"
+    puts "Commands:\nDISPLAY STUDENTS\nINPUT STUDENTS\nADD STUDENT\nCHANGE COHORT\nSAVE STUDENTS\nCLEAR STUDENTS\nHELP\nEXIT"
     puts "Commands aren't case sensitive. Unrecognised commands are ignored."
   when "EXIT"
     exit
@@ -108,6 +110,15 @@ def interface
     prompt
     process gets.chomp
   end
+end
+
+def save_students
+  file = File.open "student_directory.csv", "w"
+  @students.each do |student|
+    student_data = [student[:name],[student[:cohort]]]
+    file.puts (student_data.join(","))
+  end
+  file.close
 end
 
 interface
