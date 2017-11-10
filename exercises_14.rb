@@ -92,6 +92,7 @@ filename = "students.csv" if filename.nil? or filename == ""
       file.puts student_data.join(",")
     end
   }
+  puts "Saved."
 end
 
 def load_students(filename)
