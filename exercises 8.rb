@@ -15,9 +15,9 @@ def input_students
       cohort = cohort.downcase.to_sym
     end
     students << {name: name, cohort: cohort}
-    puts "Now we have #{students.count} students".center(40)
+    puts "Now we have #{students.count} student#{"s" if students.count != 1}".center(40)
     # get another name from the user
-    name = gets.chomp
+    name = gets.chop
   end
   # return the array of students
   students
@@ -48,7 +48,7 @@ end
 
 def print(students)
   a = 0
-  students.sort {|a,b|a[month_order :cohort]<=>b[ month_order :cohort] }
+  students.sort! {|a,b|month_order(a[:cohort])<=>month_order(b[:cohort]) }
   until a == students.length
     puts "#{a+1}. #{students[a][:name]} (#{students[a][:cohort]} cohort)".center(40)
     a += 1
@@ -69,7 +69,7 @@ def print_hobbies (students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(40)
+  puts "Overall, we have #{students.count} great student#{"s" if students.count != 1}".center(40)
 end
 
 students = input_students
