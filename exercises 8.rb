@@ -23,9 +23,7 @@ def print_header
 end
 
 def print(students)
-  puts "Enter a letter"
-  first_letter = gets.chomp
-  students.select {|student| student[:name][0].downcase == first_letter.downcase }.each_with_index do |student, i|
+  students.select {|student| student[:name].length < 12 }.each_with_index do |student, i|
     puts "#{i+1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
