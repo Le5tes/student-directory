@@ -3,8 +3,8 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save Students to file"
+  puts "4. Load Students to file"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -24,15 +24,20 @@ def process(selection)
   when "9"
     exit # this will cause the program to terminate
   when "3"
-    save_students
+    save_students (file_prompt)
   when "4"
-    load_students
+    try_load_students (file_prompt)
   else
     puts "I don't know what you meant, try again"
   end
 end
 
-def add_student name cohort
+def file_prompt
+  puts "Enter a file name. (Default 'students.csv')"
+  gets.chomp
+end
+
+def add_student name, cohort
   @students << {name: name, cohort: cohort}
 end
 
@@ -72,39 +77,46 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
+def save_students filename
+filename = "students.csv" if filename.nil? or filename == ""
+
+  if File.exist?(filename)
+    puts "#{filename} already exists. Overwrite? (y/n)"
+    return if gets.chomp != "y"
+  end
   # open the file for writing
-  file = File.open("students.csv", "w")
+  File.open(filename, "w"){|file|
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      file.puts student_data.join(",")
+    end
+  }
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    add_student name cohort.to_sym
-  end
-  file.close
+def load_students(filename)
+  File.open(filename, "r"){|file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_student name cohort.to_sym
+    end
+  }
 end
 
-def try_load_students
-  filename = ARGV.first# first argument from the command line
-  filename = "students.csv" if filename.nil? and File.exists("students.csv")
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
+def try_load_students filename
+  filename = "students.csv" if filename.nil? or filename == ""
+    if File.exist?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
   end
 end
 
-try_load_students
+def load_on_open
+  filename = ARGV.first# first argument from the command line
+  try_load_students filename
+end
+
+load_on_open
 interactive_menu
