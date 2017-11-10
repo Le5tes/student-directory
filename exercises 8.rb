@@ -30,6 +30,19 @@ def print(students)
   end
 end
 
+def add_hobbies (students)
+  students.each{|student|
+    puts "Please enter a hobby for #{student[:name]}"
+    student[:hobby] = gets.chomp
+  }
+end
+
+def print_hobbies (students)
+    students.each{|student|
+      puts "#{student[:name]} likes #{student[:hobby]}."
+    }
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
@@ -39,3 +52,5 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+add_hobbies(students)
+print_hobbies(students)
