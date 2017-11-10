@@ -35,6 +35,7 @@ end
 def add_student name cohort
   @students << {name: name, cohort: cohort}
 end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -94,6 +95,7 @@ end
 
 def try_load_students
   filename = ARGV.first# first argument from the command line
+  filename = "students.csv" if filename.nil? and File.exists("students.csv")
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
