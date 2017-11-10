@@ -75,7 +75,7 @@ end
 students = input_students
 #nothing happens until we call the methods
 print_header
-print(students)
+if students.count > 0 then print(students) else puts "There are no students here :(".center(40) end
 print_footer(students)
 add_hobbies(students)
 print_hobbies(students)
